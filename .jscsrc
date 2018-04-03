@@ -1,0 +1,7 @@
+{
+  "preset": "airbnb",
+  "requireCurlyBraces": [],
+  "validateIndentation": 2,
+  "requireTrailingComma": null,
+  "disallowTrailingComma": true
+}
