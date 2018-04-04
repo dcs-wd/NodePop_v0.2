@@ -2,5 +2,7 @@
 	"empty_file": "the file {{file}} is empty",
 	"not_found": "Not Found",
 	"not_valid": "Not valid",
-	"generic": "There was an error: {{err}}"
+	"generic": "There was an error: {{err}}",
+	"Login": "Login",
+	"Please login to access": "Please login to access"
 }

@@ -1,0 +1,59 @@
+<% include header.html %>
+
+  <header class="masthead">
+    <div class="container h-100">
+      <div class="row h-100">
+        <div class="col-lg-7 my-auto">
+          <div class="header-content mx-auto">
+
+
+            <p>
+              <%= __('Welcome to') %>
+                <%= title %>
+            </p>
+
+            <form action="/sendemail" method="POST">
+              <button type="submit">
+                <%= __('Send email') %>
+              </button>
+            </form>
+
+            <form action="/upload" method="POST" enctype="multipart/form-data">
+              <input type="file" name="imagen">
+              <button type="submit">
+                <%= __('Send file') %>
+              </button>
+            </form>
+
+            <p>
+              <%= __n('MOUSE', 2) %>
+            </p>
+            <p>
+              <%= __('(C) 2018 by loquesea') %>
+            </p>
+            <!-- <p><%= __('HOME.HEADER.COPYRIGHT_NOTICE') %></p> -->
+            <p>
+              <%= texto %>
+
+
+                <!-- <p>Segundo actual: <%= condicion.segundo %></p>
+
+    <h2>Incluir una condición</h2>
+    <% if (condicion.estado) { %>
+      <p>El segundo actual es par</p>
+    <% } else { %>
+      <p>El segundo actual es impar</p>
+    <% } %>
+
+    <h2>Anuncios</h2>
+    <% users.forEach(user => {  %>
+      <p><%= user.name + ' ' + user.age %></p>
+    <% }) %> -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <% include footer.html %>
