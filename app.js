@@ -43,10 +43,6 @@ app.use(i18n.init);
 // login controller
 const loginController = require('./routes/loginController');
 
-// Web
-app.use('/', require('./routes/index'));
-app.use('/anuncios', require('./routes/anuncios'));
-
 // API v1
 app.use('/apiv1/anuncios', jwtAuth(), require('./routes/apiv1/anuncios'));
 app.use('/loginJWT', loginController.postLoginJWT);
@@ -77,7 +73,7 @@ app.use(async (req, res, next) => {
   }
 });
 
-// Config app web
+// Web
 app.use(function (req, res, next) {
   next();
 });

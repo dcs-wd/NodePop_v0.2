@@ -8,14 +8,16 @@ const db = require('./lib/connectMongoose');
 
 // Cargamos las definiciones de todos nuestros modelos
 const Anuncio = require('./models/Anuncio');
+const Usuario = require('./models/Usuario');
 
 db.once('open', async function () {
   try {
-    const answer = await askUser('Are you sure you want to empty DB? (no) ');
-    if (answer.toLowerCase() === 'yes') {
+    const answer = await askUser('Are you sure you want to empty DB? (y/n) ');
+    if (answer.toLowerCase() === 'y') {
 
       // Inicializar nuestros modelos
       await initAnuncios();
+      await initUsuarios();
 
     } else {
       console.log('DB install aborted!');
@@ -53,4 +55,21 @@ async function initAnuncios() {
 
   return numLoaded;
 
+}
+
+async function initUsuarios() {
+
+  await Usuario.remove({});
+  console.log('Usuarios borrados.');
+
+  // Cargar usuarios.json
+  const insert = await Usuario.insertMany([
+    {
+      name: 'user',
+      email: 'user@example.com',
+      password: await Usuario.hashPassword('1234')
+    }
+  ]);
+
+  console.log(`Se ha cargado ${inserted} usuarios`);
 }

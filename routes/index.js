@@ -11,9 +11,7 @@ const { query, validationResult } = require('express-validator/check');
 const upload = require('../lib/uploadConfig');
 
 /* GET home page. */
-router.get('/', sessionAuth(), function(req, res, next) {
-  //res.render('index', { title: 'Nodeapi' });
-
+router.get('/', sessionAuth(), function (req, res, next) {
   const segundo = (new Date()).getSeconds();
 
   res.locals.valor = 123;
@@ -32,11 +30,11 @@ router.get('/', sessionAuth(), function(req, res, next) {
 
 router.post('/sendemail', async (req, res, next) => {
   try {
-    
+
     await req.user.sendMail('Nodeapi', 'Asunto de prueba', 'Correo de prueba');
-    
+
     res.redirect('/');
-  } catch(err) {
+  } catch (err) {
     next(err);
     return;
   }
@@ -58,7 +56,7 @@ router.get('/paramopcional/:dato?', (req, res, next) => {
   res.send('ok');
 });
 
-// acepts numeric ids 
+// acepts numeric ids
 router.get('/param/:id([0-9]+)/piso/:piso/puerta/:puerta(A|B|C)', (req, res, next) => {
   console.log('req.params', req.params);
   res.send('ok');
@@ -73,7 +71,7 @@ router.get('/enquerystring', [
       }
       return true;
     })
-  
+
 ], (req, res, next) => {
   validationResult(req).throw();
   console.log('req.query', req.query);

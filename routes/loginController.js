@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 class LoginController {
-  
+
   // GET /
   index(req, res, next) {
     res.locals.email = process.env.NODE_ENV === 'development' ? 'admin@example.com' : '';
@@ -17,7 +17,7 @@ class LoginController {
   async post(req, res, next) {
     const email = req.body.email;
     const password = req.body.password;
-    
+
     res.locals.error = '';
     res.locals.email = email;
 
@@ -30,9 +30,7 @@ class LoginController {
       return;
     }
 
-    // abcd1234 - admin
-    // dentro de la sesión apunto el _id del usuario, para saber que esta
-    // sesión está autenticada
+    // autentificación de session
     req.session.authUser = { _id: user._id };
 
     // usuario encontrado y validado
@@ -48,10 +46,10 @@ class LoginController {
 
     // Comprobar usuario encontrado y verificar la clave del usuario
     if (!user || !await bcrypt.compare(password, user.password)) {
-      res.json({success: false, error: 'Wrong credentials'});
+      res.json({ success: false, error: 'Wrong credentials' });
       return;
     }
-    
+
     // el usuario está y coincide la password
     jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
       expiresIn: '2d'
@@ -60,7 +58,7 @@ class LoginController {
         next(err);
         return;
       }
-      res.json({ success: true, token: token});
+      res.json({ success: true, token: token });
     });
 
 
@@ -69,7 +67,7 @@ class LoginController {
   // GET /logout
   logout(req, res, next) {
     delete req.session.authUser; // borrar authUser de la sesion
-    req.session.regenerate(function(err) { // crear nueva sesión vacia
+    req.session.regenerate(function (err) { // crear nueva sesión vacia
       if (err) {
         next(err);
         return;
