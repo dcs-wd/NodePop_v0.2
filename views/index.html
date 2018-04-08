@@ -3,57 +3,80 @@
   <header class="masthead">
     <div class="container h-100">
       <div class="row h-100">
-        <div class="col-lg-7 my-auto">
-          <div class="header-content mx-auto">
-
-
-            <p>
+        <div class="col-12 my-auto">
+          <div class="header-content mx-auto mb-2">
+            <h1>
               <%= __('Welcome to') %>
                 <%= title %>
-            </p>
-
-            <form action="/sendemail" method="POST">
-              <button type="submit">
-                <%= __('Send email') %>
-              </button>
-            </form>
-
-            <form action="/upload" method="POST" enctype="multipart/form-data">
-              <input type="file" name="imagen">
-              <button type="submit">
-                <%= __('Send file') %>
-              </button>
-            </form>
-
-            <p>
-              <%= __n('MOUSE', 2) %>
-            </p>
-            <p>
-              <%= __('(C) 2018 by loquesea') %>
-            </p>
-            <!-- <p><%= __('HOME.HEADER.COPYRIGHT_NOTICE') %></p> -->
-            <p>
-              <%= texto %>
-
-
-                <!-- <p>Segundo actual: <%= condicion.segundo %></p>
-
-    <h2>Incluir una condición</h2>
-    <% if (condicion.estado) { %>
-      <p>El segundo actual es par</p>
-    <% } else { %>
-      <p>El segundo actual es impar</p>
-    <% } %>
-
-    <h2>Anuncios</h2>
-    <% users.forEach(user => {  %>
-      <p><%= user.name + ' ' + user.age %></p>
-    <% }) %> -->
-
+            </h1>
           </div>
+        </div>
+        <div class="col-12 text-center">
+          <form action="/sendemail" method="POST">
+            <button type="submit" class="btn btn-outline-light w-25 p-4">
+              <%= __('Send email') %>
+            </button>
+          </form>
         </div>
       </div>
     </div>
   </header>
+
+  <main class="row bg-secondary">
+    <section class="col-12">
+      <div class="container">
+        <h2 class="text-center text-white mb-4">
+          <%= __('Ads') %>
+        </h2>
+        <div class="card-deck">
+          <% anuncios.forEach(anuncio => {  %>
+            <div class="card">
+              <img class="card-img-top w-50 h-50 m-auto p-4" src="<%= anuncio.foto %>" alt="<%= anuncio.foto %>">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= __(anuncio.nombre) %>
+                </h5>
+                <p class="card-text">
+                  <small class="text-muted">
+                    <%= __('Status: ' + anuncio.venta) %>
+                  </small>
+                  <p class="card-text text-right">
+                    <%= __('Price: ') %>
+                      <%= anuncio.precio %>
+                  </p>
+              </div>
+              <div class="card-footer">
+                <small class="text-muted">
+                  <%= __('Tags: ') %>
+                    <%= anuncio.tags %>
+                </small>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="row justify-content-center bg-info">
+    <section class="col-12 col-md-6">
+      <h2 class="text-center text-white mb-4">
+        <%= __('Upload file') %>
+      </h2>
+      <div class="container">
+        <form action="/upload" method="POST" enctype="multipart/form-data" class="border border-light rounded p-4">
+          <div class="custom-file mb-4">
+            <input type="file" class="custom-file-input" name="imagen">
+            <label class="custom-file-label" for="validatedCustomFile">
+              <%= __('Choose file...') %>
+            </label>
+          </div>
+          <button type="submit" class="btn btn-outline-light btn-block p-2">
+            <%= __('Send file') %>
+          </button>
+        </form>
+      </div>
+    </section>
+  </div>
 
   <% include footer.html %>

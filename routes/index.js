@@ -1,8 +1,12 @@
 var express = require('express');
 var router = express.Router();
+
 const i18n = require('../lib/i18nConfigure')();
 const sessionAuth = require('../lib/sessionAuth');
 const Usuario = require('../models/Usuario');
+
+const fs = require('fs');
+const Anuncio = require('mongoose').model('Anuncio');
 
 // cargamos librería de validaciones
 const { query, validationResult } = require('express-validator/check');
@@ -11,21 +15,24 @@ const { query, validationResult } = require('express-validator/check');
 const upload = require('../lib/uploadConfig');
 
 /* GET home page. */
-router.get('/', sessionAuth(), function (req, res, next) {
-  const segundo = (new Date()).getSeconds();
+router.get('/', sessionAuth(), async function (req, res, next) {
+  try {
+    const start = parseInt(req.query.start) || 0;
+    const limit = parseInt(req.query.limit) || 1000; // nuestro api devuelve max 1000 registros
+    const sort = req.query.sort || '_id';
+    const includeTotal = true;
 
-  res.locals.valor = 123;
-  res.locals.texto = `<script>alert("${res.__('hola, he conseguido inyectar codigo')}")</script>`;
-  res.locals.condicion = {
-    segundo: segundo,
-    estado: segundo % 2 === 0
-  };
-  res.locals.users = [
-    { name: 'Smith', age: 20 },
-    { name: 'Thomas', age: 34 },
-    { name: 'Jones', age: 47 }
-  ];
-  res.render('index');
+    const filters = {};
+    if (req.query.tag) {
+      filters.tags = req.query.tag;
+    }
+    if (req.query.venta) {
+      filters.venta = req.query.venta;
+    }
+
+    const { total, rows } = await Anuncio.list(filters, start, limit, sort, includeTotal);
+    res.render('index', { total, anuncios: rows });
+  } catch (err) { return res.next(err); }
 });
 
 router.post('/sendemail', async (req, res, next) => {

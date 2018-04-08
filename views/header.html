@@ -8,7 +8,9 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>New Age - Start Bootstrap Theme</title>
+  <title>
+    <%= title %>
+  </title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,27 +39,35 @@
         <%= title %>
       </a>
 
-      <!-- <% getLocales().forEach( lang => { %>
-          <a href="/lang/<%= lang %>"><%= lang %></a>&nbsp;
-        <% }) %> -->
+      <% getLocales().forEach( lang => { %>
+        <a href="/lang/<%= lang %>">
+          <%= lang %>
+        </a>&nbsp;
+        <% }) %>
 
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fa fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="/logout">Logout</a>
-          </li>
-        </ul>
-      </div>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <%= __('Menu') %>
+              <i class="fa fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/">
+                  <%= __('Home') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/about">
+                  <%= __('About') %>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link js-scroll-trigger" href="/logout">
+                  <%= __('Logout') %>
+                </a>
+              </li>
+            </ul>
+          </div>
     </div>
   </nav>

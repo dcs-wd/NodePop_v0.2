@@ -46,7 +46,8 @@ class LoginController {
 
     // Comprobar usuario encontrado y verificar la clave del usuario
     if (!user || !await bcrypt.compare(password, user.password)) {
-      res.json({ success: false, error: 'Wrong credentials' });
+      res.sendStatus(401);
+      console.log('No token provided');
       return;
     }
 

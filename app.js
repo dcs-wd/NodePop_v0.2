@@ -55,9 +55,7 @@ app.use(session({
   saveUninitialized: false,
   cookie: { maxAge: 2 * 24 * 60 * 60 * 1000, httpOnly: true }, // dos dias de inactividad
   store: new MongoStore({
-    // como conectarse a mi base de datos
-    url: 'mongodb://localhost/nodepop' // fix issue https://github.com/jdesboeufs/connect-mongo/issues/277
-    // mongooseConnection: conn
+    url: 'mongodb://localhost/nodepop'
   })
 }));
 
@@ -86,7 +84,7 @@ app.use('/', require('./routes/index'));
 app.use('/about', require('./routes/about'));
 app.use('/lang', require('./routes/lang'));
 
-app.use('/users', require('./routes/users'));
+app.use('/ads', require('./routes/anuncios'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

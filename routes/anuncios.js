@@ -20,9 +20,9 @@ router.get('/', async function (req, res, next) {
       filters.venta = req.query.venta;
     }
 
-    const {total, rows} = await Anuncio.list(filters, start, limit, sort, includeTotal);
+    const { total, rows } = await Anuncio.list(filters, start, limit, sort, includeTotal);
     res.render('anuncios', { total, anuncios: rows });
-  } catch(err) { return res.next(err); }
+  } catch (err) { return res.next(err); }
 });
 
 module.exports = router;
